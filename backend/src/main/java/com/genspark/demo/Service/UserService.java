@@ -1,6 +1,7 @@
-package com.week_11_team_project.demo.Service;
+package com.genspark.Service;
 
-import com.week_11_team_project.demo.Entity.User;
+import com.genspark.Entity.User;
+import com.genspark.Request.UserRequest;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface UserService {
 
     User getUserByID(int userID);
 
-    User addUser(User newUser);
+    User addUser(UserRequest userRequest);
 
     User UpdateInformation(User User);
 
