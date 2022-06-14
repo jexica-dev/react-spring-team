@@ -1,6 +1,6 @@
-# digi-Altar
+# Game-play
 
-**digi-Altar** is a online video game realm, where you can save or share your favorite games, make an account with your game plan, and play a game about games.
+**Game-play** is a online video game realm, where you can save or share your favorite games, make an account with your game plan, and play a game about games.
 
 tobeupdated:
 [Deployed](https://link.com)
