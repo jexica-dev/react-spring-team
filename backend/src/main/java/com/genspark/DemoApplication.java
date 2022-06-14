@@ -1,4 +1,4 @@
-package com.week_11_team_project.demo;
+package com.genspark;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
