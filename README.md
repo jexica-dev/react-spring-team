@@ -1,15 +1,15 @@
-# Game-play
+# GameSquared
 
-**Game-play** is a online video game realm, where you can save or share your favorite games, make an account with your game plan, and play a game about games.
+**GameSquared** is a online video game realm, where you can save or share your favorite games, make an account with your game plan, and play a game about games.
 
-tobeupdated:
-[Deployed](https://link.com)
+
+[Deployed](https://gamesquared.netlify.app)
 
 <br>
 
 ## MVP
 
-The **GameSite** MVP will include an game feature home page, the game page with all the top games from RAWG, the log-in/log-out functionality, saving favorite games to users, and possibly playing a game about games.
+The **GameSite** MVP will include an game feature home page, the game page with all the top games from the RAWG API, the log-in/log-out functionality, saving favorite games to users, and possibly playing a game about games.
 
 <br>
 
@@ -32,7 +32,7 @@ The **GameSite** MVP will include an game feature home page, the game page with 
 |   React Router + Dom  | React Router is a collection of navigational components that compose declaratively with your application and enables you to implement dynamic routing in a web app |
 |   Spring Boot   | Spring Boot provides a good platform for Java developers to develop a stand-alone and production-grade spring application that you can just run. |
 |  Axios | Axios is a simple promise based HTTP client for the browser and node.js.  |
-<!-- |  JWT | A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard. | -->
+
 
 
 <br>
