@@ -7,17 +7,19 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> seeAllUsers();
+    List<User> getAllUsers();
 
-    User getUserByID(int userID);
+    User getUserByID(int id);
 
-    User addUser(UserRequest userRequest);
+    String addUser(UserRequest userRequest);
 
     User loginUser(UserRequest userRequest);
 
-    User UpdateInformation(User User);
+    String editUserPassword(UserRequest userRequest, int id);
 
-    String deleteUser(int userID);
+    String editUsername(UserRequest userRequest, int id);
+
+    String deleteUser(UserRequest userRequest, int id);
 
 
 

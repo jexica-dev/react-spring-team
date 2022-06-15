@@ -6,9 +6,8 @@ import com.genspark.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityExistsException;
 import java.util.HashMap;
-import java.util.InputMismatchException;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -17,47 +16,61 @@ public class Controller {
     @Autowired
     private UserService service;
 
-//    @GetMapping("/")
-//    public VideoGame get(){
-//        System.out.println("lalala");
-//        return new VideoGame();
-//    }
+    @GetMapping("/users")
+    public List<User> getAllUsers(){
+        return this.service.getAllUsers();
+    }
 
-//    @GetMapping("/users")
-//    public List<User> allUsers(){
-//        return this.service.seeAllUsers();
-//    }
+    @GetMapping("user/{id}")
+    public HashMap<String, Object> getUserByid(@RequestBody UserRequest userRequest, @PathVariable(value = "id") int id) {
+        User user = this.service.getUserByID(id);
+        if (user == null) return new HashMap<>() {{
+            put("msg", "Invalid login credentials");
+        }};
+        return new HashMap<>() {{
+            put("id", user.getId());
+            put("username", user.getUsername());
+        }};
+    }
 
     @PostMapping("new-user")
-    public String createUser(@RequestBody UserRequest userRequest){
-        try {
-            User newUser = this.service.addUser(userRequest);
-            return "Success: User: %s successfully created".formatted(newUser.getUsername());
-        } catch (EntityExistsException | InputMismatchException e ) {
-            return e.getMessage();
+    public HashMap<String, String> createUser(@RequestBody UserRequest userRequest) {
+        String msg = this.service.addUser(userRequest);
+        if (msg.startsWith("Success")) {
+            return new HashMap<>() {{
+                put("successMsg", msg.split(": ")[1]);
+            }};
         }
+        return new HashMap<>() {{
+            put("errorMsg", msg);
+        }};
+
     }
 
     @PostMapping("login")
-    public HashMap<String, Object> loginUser(@RequestBody UserRequest userRequest){
+    public HashMap<String, Object> loginUser(@RequestBody UserRequest userRequest) {
         User user = this.service.loginUser(userRequest);
-        if(user == null) return new HashMap<>(){{put("msg", "Invalid login credentials");}} ;
-        return new HashMap<>(){{put("id", user.getId()); put("username", user.getUsername());}} ;
+        if (user == null) return new HashMap<>() {{
+            put("msg", "Invalid login credentials");
+        }};
+        return new HashMap<>() {{
+            put("id", user.getId());
+            put("username", user.getUsername());
+        }};
     }
 
+    @PutMapping("edit-password/{id}")
+    public String editUserPassword(@RequestBody UserRequest userRequest, @PathVariable(value = "id") int id) {
+        return this.service.editUserPassword(userRequest, id);
+    }
 
-//
-//
-//    @PutMapping("/edit-profile")
-//    public User editProfile(@RequestBody User user){
-//        return service.UpdateInformation(user);
-//    }
-//
-//    @DeleteMapping("/delete-profile/{name}")
-//    public String deleteUser(@PathVariable String userID){
-//        return this.service.deleteUser(Integer.parseInt(userID));
-//    }
-//
+    @PutMapping("edit-username/{id}")
+    public String editUsername(@RequestBody UserRequest userRequest, @PathVariable(value = "id") int id) {
+        return this.service.editUsername(userRequest, id);
+    }
 
-
+    @DeleteMapping("/delete-user/{id}")
+    public String deleteUser(@RequestBody UserRequest userRequest ,@PathVariable(value = "id") int id){
+        return this.service.deleteUser(userRequest, id);
+    }
 }

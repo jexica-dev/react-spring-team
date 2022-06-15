@@ -21,8 +21,8 @@ export default function Signup(props) {
       // navigate("/login")
       const msg = document.getElementById("msg")
       const {data} = res
-      if (data.startsWith("Error")) {
-        msg.innerText = data.split(": ")[1]
+      if (data.errorMsg) {
+        msg.innerText = data.errorMsg
       } else {
         msg.innerText = "Your account has successfully been created. Please log in."
       }

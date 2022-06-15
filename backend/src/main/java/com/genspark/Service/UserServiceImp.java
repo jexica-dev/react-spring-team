@@ -7,6 +7,7 @@ import com.genspark.Request.UserRequest;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityExistsException;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -19,56 +20,49 @@ public class UserServiceImp implements UserService {
     private UserDao userDao;
 
     @Override
-    public List<User> seeAllUsers() {
+    public List<User> getAllUsers() {
         return this.userDao.findAll();
     }
 
     @Override
-    public User getUserByID(int userID) {
-
-        Optional<User> u = this.userDao.findById(userID);
-        User user = null;
-        if (u.isPresent()) {
-            user = u.get();
-        } else {
-            throw new RuntimeException("No user by that ID ::" + userID);
-        }
+    public User getUserByID(int id) {
+        User user = this.userDao.findById(id).orElse(null);
         return user;
-
     }
 
     @Override
-    public User addUser(UserRequest userRequest) {
-        if(userRequest.getUsername().trim().isEmpty())
-            throw new InputMismatchException("Error: Please enter a username.");
-        if(userRequest.getEmail().trim().isEmpty())
-            throw new InputMismatchException("Error: Please enter an email.");
-        if(userRequest.getConfirmEmail().trim().isEmpty())
-            throw new InputMismatchException("Error: Please confirm email.");
-        if(userRequest.getPassword().trim().isEmpty())
-            throw new InputMismatchException("Error: Please enter a password.");
-        if(userRequest.getConfirmPassword().trim().isEmpty())
-            throw new InputMismatchException("Error: Please confirm password.");
+    public String addUser(UserRequest userRequest) {
+        if (userRequest.getUsername().trim().isEmpty())
+            return "Please enter a username.";
+        if (userRequest.getEmail().trim().isEmpty())
+            return "Please enter an email.";
+        if (userRequest.getConfirmEmail().trim().isEmpty())
+            return "Please confirm email.";
+        if (userRequest.getPassword().trim().isEmpty())
+            return "Please enter a password.";
+        if (userRequest.getConfirmPassword().trim().isEmpty())
+            return "Please confirm password.";
         if (!userRequest.getPassword().equals(userRequest.getConfirmPassword()))
-            throw new InputMismatchException("Error: Passwords do not match.");
+            return "Passwords do not match.";
         if (!userRequest.getEmail().equals(userRequest.getConfirmEmail()))
-            throw new InputMismatchException("Error: Email addresses do not match.");
-        if(!userRequest.getEmail().matches("^[\\p{L}0-9!#$%&'*+\\/=?^_`{|}~-][\\p{L}0-9.!#$%&'*+\\/=?^_`{|}~-]{0,63}@[\\p{L}0-9-]+(?:\\.[\\p{L}0-9-]{2,7})*$"))
-            throw new InputMismatchException("Error: Email is not valid");
+            return "Email addresses do not match.";
+        if (!userRequest.getEmail().matches("^[\\p{L}0-9!#$%&'*+\\/=?^_`{|}~-][\\p{L}0-9.!#$%&'*+\\/=?^_`{|}~-]{0,63}@[\\p{L}0-9-]+(?:\\.[\\p{L}0-9-]{2,7})*$"))
+            return "Email is not valid";
         if (!userRequest.getPassword().matches("^(?=.*?[#?!@$%^&*-])(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$"))
-            throw new InputMismatchException("Error: Password must be at least 8 characters long and contain at least one English letter, at least one digit, and at least one of the following special characters: #?!@$%^&*-.");
+            return "Password must be at least 8 characters long and contain at least one English letter, at least one digit, and at least one of the following special characters: #?!@$%^&*-.";
         for (User u : userDao.findAll()) {
             if (u.getEmail().equals(userRequest.getEmail()))
-                throw new EntityExistsException("Error: That email address is not unique.");
+                return "That email address is not unique.";
             if (u.getUsername().equals(userRequest.getUsername()))
-                throw new EntityExistsException("Error: That username is not unique.");
+                return "That username is not unique.";
         }
         User newUser = new User();
         newUser.setUsername(userRequest.getUsername());
         newUser.setEmail(userRequest.getEmail());
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         newUser.setPassWord(passwordEncryptor.encryptPassword(userRequest.getPassword())); // need to encrypt the password
-        return userDao.save(newUser);
+        userDao.save(newUser);
+        return "Success: New user successfully created.";
     }
 
     @Override
@@ -83,14 +77,48 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User UpdateInformation(User User) {
-        return userDao.save(User);
+    public String editUserPassword(UserRequest userRequest, int id) {
+        // to edit a password, the user must provide their current password
+        User user = userDao.findById(id).orElse(null);
+        if (user == null) return "No user with that id exists.";
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        if (!passwordEncryptor.checkPassword(userRequest.getPassword(), user.getPassWord()))
+            return "Incorrect password.";
+        if (passwordEncryptor.checkPassword(userRequest.getNewPassword(), user.getPassWord()))
+            return "That's already your password.";
+        if (!userRequest.getNewPassword().matches("^(?=.*?[#?!@$%^&*-])(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$"))
+            return " New password must be at least 8 characters long and contain at least one English letter, at least one digit, and at least one of the following special characters: #?!@$%^&*-.";
+        user.setPassWord(passwordEncryptor.encryptPassword(userRequest.getNewPassword()));
+        userDao.save(user);
+        return "Password changed successfully.";
     }
 
     @Override
-    public String deleteUser(int userID) {
-        this.userDao.deleteById(userID);
+    public String editUsername(UserRequest userRequest, int id) {
+        // try to find user whose username is being updated
+        User user = userDao.findById(id).orElse(null);
+        if (user == null) return "No user with that id exists.";
+        // go through users in db, looking for users who
+        for (User u : userDao.findAll()) {
+            if (u.getUsername().equals(userRequest.getNewUsername()) && u.getId() == id)
+                return "That's already your username.";
+            if(u.getUsername().equals(userRequest.getNewUsername()) && u.getId() != id)
+                return "That username is already taken.";
+        }
+        user.setUsername(userRequest.getNewUsername());
+        userDao.save(user);
+        return "Username changed successfully.";
+    }
 
-        return "User removed from the database";
+    @Override
+    public String deleteUser(UserRequest userRequest, int id) {
+        User user = userDao.findById(id).orElse(null);
+        if (user == null) return "No user with that id exists.";
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        if (!passwordEncryptor.checkPassword(userRequest.getPassword(), user.getPassWord()))
+            return "Incorrect password.";
+        // passwords match, delete user
+        this.userDao.deleteById(id);
+        return "User removed from the database.";
     }
 }
