@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Login(props) {
  let navigate = useNavigate()
   const handleSignIn = (e) => {
+
     const { value: email } = document.getElementById("email")
     const { value: password } = document.getElementById("password")
 
@@ -24,6 +25,7 @@ export default function Login(props) {
       console.log(err)
     }) 
   }
+
 
     return (
       <>
