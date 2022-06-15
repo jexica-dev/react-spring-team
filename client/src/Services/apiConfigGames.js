@@ -1,7 +1,9 @@
 // GET https://api.rawg.io/api/platforms?key=b0781e255b0e40eabb8541cb5aa4260e
-// GET https://api.rawg.io/api/games?key=b0781e255b0e40eabb8541cb5aa4260e&dates=2019-09-01,2019-09-30&platforms=18,1,7
-
+// GET https://api.rawg.io/api/games?key=b0781e255b0e40eabb8541cb5aa4260e
+// GET https://api.rawg.io/api/games?key=${apiKey}
 import axios from "axios";
+
+const express = require("express");
 
 // Number of requests left for the period
 // >=20000
@@ -10,18 +12,15 @@ import axios from "axios";
 
 const apiKey = `b0781e255b0e40eabb8541cb5aa4260e`;
 
-const getGameData = async (props) => {
-  let searchValue = props.searchValue;
-  removeCurrentGame(props.gameSearchDiv);
+const apiUrl = `https://api.rawg.io/api/games?key=${apiKey}`;
+
+export const getGames = async () => {
   try {
-    const find = await axios.get(
-      `https://api.rawg.io/api/games?key=${apiKey}&search=${searchValue}`
-    );
-
-    const gameData = find.data;
-
-    renderData(gameData);
+    const response = await axios(apiUrl);
+    const games = response.data;
+    console.log(games);
+    return games;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };

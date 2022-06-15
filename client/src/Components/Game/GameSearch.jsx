@@ -9,7 +9,7 @@ export default function GameSearch() {
             {/* <div className="grid w-full justify-items-center h-10">
               <label className="text-xl">Search</label>
             </div> */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between h-10">
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="search-value"
