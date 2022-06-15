@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 
 @RestController
@@ -36,6 +37,15 @@ public class Controller {
             return e.getMessage();
         }
     }
+
+    @PostMapping("login")
+    public HashMap<String, Object> loginUser(@RequestBody UserRequest userRequest){
+        User user = this.service.loginUser(userRequest);
+        if(user == null) return new HashMap<>(){{put("msg", "Invalid login credentials");}} ;
+        return new HashMap<>(){{put("id", user.getId()); put("username", user.getUsername());}} ;
+    }
+
+
 //
 //
 //    @PutMapping("/edit-profile")

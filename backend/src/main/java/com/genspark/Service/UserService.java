@@ -13,6 +13,8 @@ public interface UserService {
 
     User addUser(UserRequest userRequest);
 
+    User loginUser(UserRequest userRequest);
+
     User UpdateInformation(User User);
 
     String deleteUser(int userID);

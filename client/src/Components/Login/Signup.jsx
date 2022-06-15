@@ -1,9 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"
 
-export default function Signup() {
-  let navigate = useNavigate();
+export default function Signup(props) {
+  let navigate = useNavigate()
+  if (props.id) {
+    navigate("/")
+  }
 
   const handleSignup = (e) => {
     // get values from all fields and send a post request

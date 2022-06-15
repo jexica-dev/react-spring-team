@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../Components/Layout/Layout";
 
-export default function About(props) {
+export default function Account(props) {
   return (
     <div>
       <Layout

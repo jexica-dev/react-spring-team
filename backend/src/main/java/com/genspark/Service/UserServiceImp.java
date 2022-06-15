@@ -57,8 +57,7 @@ public class UserServiceImp implements UserService {
             throw new InputMismatchException("Error: Email is not valid");
         if (!userRequest.getPassword().matches("^(?=.*?[#?!@$%^&*-])(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$"))
             throw new InputMismatchException("Error: Password must be at least 8 characters long and contain at least one English letter, at least one digit, and at least one of the following special characters: #?!@$%^&*-.");
-        List<User> users = userDao.findAll();
-        for (User u : users) {
+        for (User u : userDao.findAll()) {
             if (u.getEmail().equals(userRequest.getEmail()))
                 throw new EntityExistsException("Error: That email address is not unique.");
             if (u.getUsername().equals(userRequest.getUsername()))
@@ -70,6 +69,17 @@ public class UserServiceImp implements UserService {
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         newUser.setPassWord(passwordEncryptor.encryptPassword(userRequest.getPassword())); // need to encrypt the password
         return userDao.save(newUser);
+    }
+
+    @Override
+    public User loginUser(UserRequest userRequest) {
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        for (User u : userDao.findAll()) {
+            if (u.getEmail().equals(userRequest.getEmail()) && passwordEncryptor.checkPassword(userRequest.getPassword(), u.getPassWord())) {
+                return u;
+            }
+        }
+        return null;
     }
 
     @Override
