@@ -9,16 +9,19 @@ export default function Login(props) {
   };
 
   const handleSignIn = (e) => {
-    const { value: email } = document.getElementById("username-or-email")
-    const { value: password } = document.getElementById("password")
+    const { value: email } = document.getElementById("username-or-email");
+    const { value: password } = document.getElementById("password");
 
-    axios.post("/login", { email, password }).then(res => {
-      console.log(res)
-      props.handleLogin(true)
-    }).catch(err => {
-      console.log(err)
-    }) 
-  }
+    axios
+      .post("/login", { email, password })
+      .then((res) => {
+        console.log(res);
+        props.handleLogin(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
