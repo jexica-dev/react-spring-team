@@ -1,34 +1,43 @@
 import React, { Component } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 
 export default function Signup() {
   let navigate = useNavigate();
 
   const handleSignup = (e) => {
     // get values from all fields and send a post request
-    const { value: username } = document.getElementById("username") 
-    const { value: email } = document.getElementById("email")
-    const { value: confirmEmail } = document.getElementById("confirm_email")
-    const { value: password } = document.getElementById("password")
-    const { value: confirmPassword } = document.getElementById("confirm_password")
-    axios.post("http://localhost:8080/new-user", {
-      username, email, confirmEmail, password, confirmPassword
-    }).then(res => {
-      // navigate("/login")
-      const msg = document.getElementById("msg")
-      const {data} = res
-      if (data.startsWith("Error")) {
-        msg.innerText = data.split(": ")[1]
-      } else {
-        msg.innerText = "Your account has successfully been created. Please log in."
-      }
-    }).catch(err => {
-      console.log(err)
-    })
+    const { value: username } = document.getElementById("username");
+    const { value: email } = document.getElementById("email");
+    const { value: confirmEmail } = document.getElementById("confirm_email");
+    const { value: password } = document.getElementById("password");
+    const { value: confirmPassword } =
+      document.getElementById("confirm_password");
+    axios
+      .post("http://localhost:8080/new-user", {
+        username,
+        email,
+        confirmEmail,
+        password,
+        confirmPassword,
+      })
+      .then((res) => {
+        navigate("/login");
+        const msg = document.getElementById("msg");
+        const { data } = res;
+        if (data.startsWith("Error")) {
+          msg.innerText = data.split(": ")[1];
+        } else {
+          msg.innerText =
+            "Your account has successfully been created. Please log in.";
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  
-    return (
+
+  return (
     <>
       <div className="grid w-screen justify-items-center pt-10">
         <div className="w-full max-w-xs">
@@ -63,8 +72,8 @@ export default function Signup() {
                 type="text"
                 placeholder="Email"
                 autoComplete="true"
-                />
-                 <label
+              />
+              <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="confirm_email"
               >
@@ -89,8 +98,8 @@ export default function Signup() {
                 type="password"
                 placeholder="******************"
                 autoComplete="true"
-                />
-                 <label
+              />
+              <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="confirm_password"
               >
@@ -107,9 +116,7 @@ export default function Signup() {
             </div>
             <div className="flex items-center justify-center">
               <Link to="/login">
-                <div
-                    className="inline-block align-baseline font-bold text-sm hover:yellow"
-                >
+                <div className="inline-block align-baseline font-bold text-sm hover:yellow">
                   Already have an account?
                 </div>
               </Link>
@@ -117,8 +124,8 @@ export default function Signup() {
             <div className="flex flex-col h-12 mt-3">
               <button
                 className="bg-black hover:bg-white hover:text-black hover:border text-white font-bold py-2 px-4 rounded "
-                  type="button"
-                  onClick={handleSignup}
+                type="button"
+                onClick={handleSignup}
               >
                 Sign Up
               </button>
