@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import GameCard from "./GameCard";
+// import "./ProductCards.css";
 
-class GameCards extends Component {
+class GameContainer extends Component {
   constructor() {
     super();
     this.state = {
@@ -9,32 +9,34 @@ class GameCards extends Component {
     };
   }
 
-  async componentDidMount() {
-    const games = await getgames();
-    this.setState({ games });
-  }
+  // async componentDidMount() {
+  //   const games = await getgames();
+  //   this.setState({ games });
+  // }
 
   render() {
-    const CARDS = this.state.games
-      .reverse()
-      .map((game, index) =>
-        index < 8 ? (
-          <GameCard
-            _id={game._id}
-            name={game.name}
-            imgURL={game.imgURL}
-            key={index}
-          />
-        ) : null
-      );
+    // const CARDS = this.state.games
+    //   .reverse()
+    //   .map((game, index) =>
+    //     index < 8 ? (
+    //       <GameCard
+    //         _id={game._id}
+    //         name={game.name}
+    //         imgURL={game.imgURL}
+    //         key={index}
+    //       />
+    //     ) : null
+    //   );
 
     return (
-      <div className="game-cards">
-        <div className="latest">LATEST</div>
-        <div className="cards">{CARDS}</div>
+      <div className="border border-black">
+        <div className="game-cards">
+          <div className="p-10 latest">Game List</div>
+          {/* <div className="cards">{CARDS}</div> */}
+        </div>
       </div>
     );
   }
 }
 
-export default GameCards;
+export default GameContainer;
