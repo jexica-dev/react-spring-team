@@ -1,42 +1,39 @@
-import React, { Component } from "react";
-// import "./ProductCards.css";
+// import axios from "axios";
+import React, { useEffect } from "react";
+import { getGames } from "../../Services/apiConfigGames";
+import GameCard from "./GameCard";
 
-class GameContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      games: [],
-    };
-  }
+export default function GamesContainer() {
+  const [games, setGames] = useState("");
 
-  // async componentDidMount() {
-  //   const games = await getgames();
-  //   this.setState({ games });
-  // }
+  useEffect(() => {
+    // const data = getGames();
 
-  render() {
-    // const CARDS = this.state.games
-    //   .reverse()
-    //   .map((game, index) =>
-    //     index < 8 ? (
-    //       <GameCard
-    //         _id={game._id}
-    //         name={game.name}
-    //         imgURL={game.imgURL}
-    //         key={index}
-    //       />
-    //     ) : null
-    //   );
+    async function fetchData() {
+      const data = await getGames();
+      setGames(data);
+    }
 
-    return (
-      <div className="border border-black">
-        <div className="game-cards">
-          <div className="p-10 latest">Game List</div>
-          {/* <div className="cards">{CARDS}</div> */}
-        </div>
+    fetchData();
+  }, [games]);
+
+  const CARDS = games.reverse().map((game, index) =>
+    index < 8 ? (
+      <GameCard
+        // id={game.id}
+        name={game.name}
+        imgURL={game.background_image}
+        key={game.id}
+      />
+    ) : null
+  );
+
+  return (
+    <div className="border border-black">
+      <div className="game-cards">
+        <div className="p-10 latest">Game List</div>
+        <div className="cards">{CARDS}</div>
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-export default GameContainer;
