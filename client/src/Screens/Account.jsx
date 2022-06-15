@@ -6,7 +6,7 @@ export default function Account(props) {
     <div>
       <Layout
         id={props.id}
-        username={props.username}>About</Layout>
+        username={props.username}>Account</Layout>
     </div>
   );
 }
