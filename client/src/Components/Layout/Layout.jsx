@@ -13,7 +13,10 @@ class Layout extends Component {
   render() {
     return (
       <div className="w-screen h-screen z-10">
-        <NavBar signedIn={this.props.signedIn} />
+        <NavBar
+          id={this.props.id}
+          username={this.props.username}
+        />
         {this.props.children}
       </div>
     );

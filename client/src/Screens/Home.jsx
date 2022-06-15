@@ -16,7 +16,7 @@ class Home extends Component {
   render() {
     return (
       <div className="">
-        <Layout signedIn={this.props.signedIn}>
+        <Layout id={this.props.id} username={this.props.username} >
           <ThreejsScreen />
         </Layout>
       </div>

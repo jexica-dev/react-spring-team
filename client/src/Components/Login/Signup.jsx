@@ -1,40 +1,35 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Signup() {
-  let navigate = useNavigate();
+export default function Signup(props) {
+  let navigate = useNavigate()
+  if (props.id) {
+    navigate("/")
+  }
 
   const handleSignup = (e) => {
     // get values from all fields and send a post request
-    const { value: username } = document.getElementById("username");
-    const { value: email } = document.getElementById("email");
-    const { value: confirmEmail } = document.getElementById("confirm_email");
-    const { value: password } = document.getElementById("password");
-    const { value: confirmPassword } =
-      document.getElementById("confirm_password");
-    axios
-      .post("http://localhost:8080/new-user", {
-        username,
-        email,
-        confirmEmail,
-        password,
-        confirmPassword,
-      })
-      .then((res) => {
-        navigate("/login");
-        const msg = document.getElementById("msg");
-        const { data } = res;
-        if (data.startsWith("Error")) {
-          msg.innerText = data.split(": ")[1];
-        } else {
-          msg.innerText =
-            "Your account has successfully been created. Please log in.";
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    const { value: username } = document.getElementById("username") 
+    const { value: email } = document.getElementById("email")
+    const { value: confirmEmail } = document.getElementById("confirm_email")
+    const { value: password } = document.getElementById("password")
+    const { value: confirmPassword } = document.getElementById("confirm_password")
+    axios.post("http://localhost:8080/new-user", {
+      username, email, confirmEmail, password, confirmPassword
+    }).then(res => {
+      // navigate("/login")
+      const msg = document.getElementById("msg")
+      const {data} = res
+      if (data.errorMsg) {
+        msg.innerText = data.errorMsg
+      } else {
+        msg.innerText = "Your account has successfully been created. Please log in."
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   };
 
   return (

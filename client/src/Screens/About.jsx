@@ -1,10 +1,10 @@
 import React from "react";
 import Layout from "../Components/Layout/Layout";
 
-export default function About() {
+export default function About(props) {
   return (
     <div>
-      <Layout>
+      <Layout id={props.id} username={props.username}>
         <div className="grid w-screen justify-items-center pt-10">
           <div className="w-full max-w-lg">
             <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-7">

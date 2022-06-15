@@ -29,7 +29,7 @@ export default function NavBar(props) {
             </span>
           </div>
         </Link>
-        {!props.userId ?
+        {!props.id ?
           <Link to="/login">
             <div className="">
               <span className="hover:underline hover:underline-offset-8 hover:font-light">
@@ -44,6 +44,14 @@ export default function NavBar(props) {
             </span>
           </div>
         </Link>
+        {props.id ? 
+        <Link to="/account">
+        <div className="">
+          <span className="hover:underline hover:underline-offset-8 hover:font-light ">
+            {props.username}
+          </span>
+        </div>
+      </Link> : null}
       </div>
     </div>
   );
