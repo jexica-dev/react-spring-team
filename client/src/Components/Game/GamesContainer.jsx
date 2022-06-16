@@ -1,39 +1,59 @@
-// import axios from "axios";
-import React, { useEffect } from "react";
-import { getGames } from "../../Services/apiConfigGames";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { baseURL, config } from "../../Services/apiConfigGames";
 import GameCard from "./GameCard";
 
 export default function GamesContainer() {
   const [games, setGames] = useState("");
+  const [loading, setLoading] = useState(true);
+  // let gameCards = [];
 
   useEffect(() => {
-    // const data = getGames();
-
+    //GET request
     async function fetchData() {
-      const data = await getGames();
+      const res = await axios.get(baseURL, config);
+
+      // console.log(res);
+
+      const { data } = res;
+      // console.log(data);
+
       setGames(data);
+      setLoading(false);
+      // console.log(games);
     }
-
     fetchData();
-  }, [games]);
+  }, []);
 
-  const CARDS = games.reverse().map((game, index) =>
-    index < 8 ? (
-      <GameCard
-        // id={game.id}
-        name={game.name}
-        imgURL={game.background_image}
-        key={game.id}
-      />
-    ) : null
-  );
-
-  return (
-    <div className="border border-black">
-      <div className="game-cards">
-        <div className="p-10 latest">Game List</div>
-        <div className="cards">{CARDS}</div>
-      </div>
-    </div>
-  );
+  if (!loading) {
+    return (
+        <div className="m-auto grid gap-10 grid-cols-3 max-w-screen-lg pb-12">
+        {games.results.map((game, key) => {
+              console.log(game)
+              return (
+                <GameCard
+                  id={game.id}
+                  name={game.name}
+                  background_image={game.background_image}
+                  rating={game.metacritic}
+                  released={game.released}
+                  key={key}
+                />
+            
+                  )
+            })}
+        </div>
+    );
+  } else return <h3>...</h3>;
 }
+
+// const CARDS = data.reverse().map((game, index) =>
+//   index < 5 ? (
+//     <GameCard
+//       id={game.id}
+//       name={game.name}
+//       // imgURL={game.image_background}
+//       // imgURL={game.imgURL}
+//     />
+//   ) : null
+// );
