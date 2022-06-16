@@ -5,7 +5,7 @@ import { baseURL, config } from "../../Services/apiConfigGames";
 
 export default function GamesContainer() {
   const [games, setGames] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     //GET request
@@ -24,15 +24,20 @@ export default function GamesContainer() {
     fetchData();
   }, []);
 
-  console.log(games);
-
   if (!loading) {
+    // console.log(games.results);
     return (
       <>
         <div className="border border-black">
           <div className="game-cards">
             <div className="p-10 latest">Game List</div>
-            {games.map((game, index) => (index < 5 ? console.log(game) : null))}
+            {games.results.map((gameconsole, index) => {
+              return (
+                <>
+                  <div>{gameconsole.games.map((game) => game.name)}</div>
+                </>
+              );
+            })}
             {/* <div className="cards">{CARDS}</div> */}
           </div>
         </div>
