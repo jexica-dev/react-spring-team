@@ -6,6 +6,7 @@ import { baseURL, config } from "../../Services/apiConfigGames";
 export default function GamesContainer() {
   const [games, setGames] = useState("");
   const [loading, setLoading] = useState(true);
+  // let gameCards = [];
 
   useEffect(() => {
     //GET request
@@ -25,20 +26,25 @@ export default function GamesContainer() {
   }, []);
 
   if (!loading) {
-    // console.log(games.results);
+    console.log(games.results);
+
     return (
       <>
         <div className="border border-black">
           <div className="game-cards">
             <div className="p-10 latest">Game List</div>
-            {games.results.map((gameconsole, index) => {
+            {/* {games.results.map((gameconsoles, index) => {
               return (
                 <>
-                  <div>{gameconsole.games.map((game) => game.name)}</div>
+                  {gameconsoles.games.map((game) => (
+                    <>
+                      <div>{game.name}</div>
+                      <div>{game.}</div>
+                    </>
+                  ))}
                 </>
               );
-            })}
-            {/* <div className="cards">{CARDS}</div> */}
+            })} */}
           </div>
         </div>
       </>
