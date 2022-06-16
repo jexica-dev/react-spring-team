@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { baseURL, config } from "../../Services/apiConfigGames";
 import GameCard from "./GameCard";
 
-export default function GamesContainer() {
+export default function GamesContainer(props) {
   const [games, setGames] = useState("");
   const [loading, setLoading] = useState(true);
   // let gameCards = [];
@@ -29,10 +29,10 @@ export default function GamesContainer() {
     return (
         <div className="m-auto grid gap-10 grid-cols-3 max-w-screen-lg pb-12">
         {games.results.map((game, key) => {
-              console.log(game)
               return (
                 <GameCard
-                  id={game.id}
+                  gameId={game.id}
+                  userId={props.id}
                   name={game.name}
                   background_image={game.background_image}
                   rating={game.metacritic}
