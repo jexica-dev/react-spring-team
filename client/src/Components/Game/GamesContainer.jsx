@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { baseURL, config } from "../../Services/apiConfigGames";
-// import GameCard from "./GameCard";
+import GameCard from "./GameCard";
 
 export default function GamesContainer() {
   const [games, setGames] = useState("");
@@ -26,28 +26,23 @@ export default function GamesContainer() {
   }, []);
 
   if (!loading) {
-    console.log(games.results);
-
     return (
-      <>
-        <div className="border border-black">
-          <div className="game-cards">
-            <div className="p-10 latest">Game List</div>
-            {/* {games.results.map((gameconsoles, index) => {
+        <div className="m-auto grid gap-10 grid-cols-3 max-w-screen-lg pb-12">
+        {games.results.map((game, key) => {
+              console.log(game)
               return (
-                <>
-                  {gameconsoles.games.map((game) => (
-                    <>
-                      <div>{game.name}</div>
-                      <div>{game.}</div>
-                    </>
-                  ))}
-                </>
-              );
-            })} */}
-          </div>
+                <GameCard
+                  id={game.id}
+                  name={game.name}
+                  background_image={game.background_image}
+                  rating={game.metacritic}
+                  released={game.released}
+                  key={key}
+                />
+            
+                  )
+            })}
         </div>
-      </>
     );
   } else return <h3>...</h3>;
 }
