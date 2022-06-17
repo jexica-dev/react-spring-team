@@ -1,35 +1,36 @@
-import { Routes, Route } from "react-router-dom";
-import React, { Component } from "react";
-import Home from "./Screens/Home";
+import { Routes, Route } from "react-router-dom"
+import React, { Component } from "react"
+import Home from "./Screens/Home"
 // import About from "./Screens/About";
-import Games from "./Screens/Games";
-import Login from "./Screens/LoginScreen";
-import Signup from "./Screens/Signup";
-import Account from "./Screens/Account";
-import ListScreen from "./Screens/ListScreen";
+import Game from "./Screens/Game"
+import Games from "./Screens/Games"
+import Login from "./Screens/LoginScreen"
+import Signup from "./Screens/Signup"
+import Account from "./Screens/Account"
+import ListScreen from "./Screens/ListScreen"
 
 class App extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       id: null,
       username: null,
-    };
-    this.handleLogin = this.handleLogin.bind(this);
+    }
+    this.handleLogin = this.handleLogin.bind(this)
   }
 
   componentDidMount() {
     this.setState({
       id: localStorage.getItem("userId"),
       username: localStorage.getItem("username"),
-    });
+    })
   }
 
   handleLogin(id, username) {
-    this.setState({ id, username });
+    this.setState({ id, username })
     setTimeout(() => {
-      console.log(this.state);
-    }, 1);
+      console.log(this.state)
+    }, 1)
   }
 
   render() {
@@ -54,9 +55,7 @@ class App extends Component {
           />
           <Route
             path="/games/:id"
-            element={
-              <Games id={this.state.id} username={this.state.username} />
-            }
+            element={<Game id={this.state.id} username={this.state.username} />}
           />
           <Route
             path="/login"
@@ -82,8 +81,8 @@ class App extends Component {
           />
         </Routes>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

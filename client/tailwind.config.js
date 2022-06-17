@@ -1,6 +1,9 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    maxWidth: {
+      "4/5": "80%",
+    },
     backgroundColor: (theme) => ({
       yellow: "#FFE715",
       yellow100: "#ffff94",
@@ -49,4 +52,4 @@ module.exports = {
     }),
   },
   plugins: [],
-};
+}

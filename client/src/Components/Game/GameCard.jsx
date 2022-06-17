@@ -8,7 +8,7 @@ export default function GameCard(props) {
     const gameId = target.getAttribute("game_id");
     const userId = props.userId;
     axios
-      .post("/liked-games", { userId, gameId })
+      .post("http://localhost:8080/add-to-liked-games", { userId, gameId })
       .then((res) => {
         console.log("the game was added to this user's liked list");
       })
@@ -22,9 +22,9 @@ export default function GameCard(props) {
     const gameId = target.getAttribute("game_id");
     const userId = props.userId;
     axios
-      .post("/disliked-games", { userId, gameId })
+      .post("http://localhost:8080/add-to-disliked-games", { userId, gameId })
       .then((res) => {
-        console.log("the game was added to this user's liked list");
+        console.log("the game was added to this user's disliked list");
       })
       .catch((err) => {
         console.log("nah breh");
@@ -38,7 +38,7 @@ export default function GameCard(props) {
           <h4 className="text-center">{props.name}</h4>
         </Link>
         <img
-          className="object-cover  h-fit sm:h-fit md:h-fit lg:h-48 min-w-full"
+          className="object-cover object-top h-fit sm:h-fit md:h-fit lg:h-48 min-w-full"
           src={props.background_image}
           alt={props.name}
         />

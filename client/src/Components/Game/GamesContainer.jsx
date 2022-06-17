@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { baseURL, config } from "../../Services/apiConfigGames";
+import { baseURL, API_KEY, config } from "../../Services/apiConfigGames";
 import GameCard from "./GameCard";
 
 export default function GamesContainer(props) {
@@ -11,23 +11,17 @@ export default function GamesContainer(props) {
   useEffect(() => {
     //GET request
     async function fetchData() {
-      const res = await axios.get(baseURL, config);
-
-      // console.log(res);
-
+      const res = await axios.get(baseURL+API_KEY, config);
       const { data } = res;
-      // console.log(data);
-
       setGames(data);
       setLoading(false);
-      // console.log(games);
-    }
+  }
     fetchData();
   }, []);
 
   if (!loading) {
     return (
-      <div className="m-auto grid gap-10 max-w-screen-lg  md:w-30 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pb-12">
+      <div className="m-auto grid gap-10 max-w-[1250px] md:w-30 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 md:px-10 lg:grid-cols-3 pb-12">
         {games.results.map((game, key) => {
           return (
             <GameCard
