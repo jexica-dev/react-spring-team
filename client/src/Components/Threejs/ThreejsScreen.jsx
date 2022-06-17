@@ -35,7 +35,7 @@ function Items() {
       <Item
         url="https://media.rawg.io/media/resize/1920/-/screenshots/c73/c73ab7fe15aeefc812509a255602e08a.jpg"
         scale={[w / 3, w / 3, 1]}
-        position={[-w / 6, 0.5, 0]}
+        position={[-w / 4, 0.5, 0]}
       />
       <Item
         url="https://media.rawg.io/media/resize/1920/-/screenshots/507/507556b240b4911313f28608bff75685.jpg"
@@ -74,13 +74,13 @@ function Items() {
       />
       <Item
         url="https://media.rawg.io/media/resize/1920/-/screenshots/7e2/7e2053efaed369b133dd574095294719.jpg"
-        scale={[w / 2.5, w / 2, 1]}
+        scale={[w / 3, w / 2, 1]}
         position={[-w / 4, -h * 3.7, 0]}
       />
       <Item
         url="https://media.rawg.io/media/resize/1920/-/screenshots/a5c/a5c95ea539c87d5f538763e16e18fb99.jpg"
         scale={[w / 4, w / 4, 1]}
-        position={[w / 6, -h * 4, 0]}
+        position={[w / 8, -h * 4, 0]}
 
       />
     </Scroll>
@@ -107,16 +107,14 @@ export default function ThreejsScreen() {
               lineHeight: "100px",
               fontWeight: "700",
               position: "absolute",
-              top: `90vh`,
-              right: "15vw",
+              top: `50vh`,
+              right: "7vw",
               fontSize: "8vw",
               transform: `translate3d(0,-137%,0)`,
               color: "black",
             }}
           >
-            a site
-            <br />
-            about games
+            gamepedia
           </h1>
           <h1
             style={{
@@ -147,7 +145,7 @@ export default function ThreejsScreen() {
               fontFamily: "ABC Camera Black",
               position: "absolute",
               top: "330vh",
-              left: "5vw",
+              left: "10vw",
               fontSize: "13vw",
               color: "black",
               lineHeight: 1,
