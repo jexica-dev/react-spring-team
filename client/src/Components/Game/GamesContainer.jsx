@@ -11,7 +11,7 @@ export default function GamesContainer(props) {
   useEffect(() => {
     //GET request
     async function fetchData() {
-      const res = await axios.get(baseURL+API_KEY, config);
+      const res = await axios.get(baseURL+API_KEY+"&page_size=24", config);
       const { data } = res;
       setGames(data);
       setLoading(false);
