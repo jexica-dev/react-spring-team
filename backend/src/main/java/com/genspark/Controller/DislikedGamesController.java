@@ -22,7 +22,6 @@ public class DislikedGamesController {
 
     @PostMapping("/add-to-disliked-games")
     public String addToDislikedGames(@RequestBody DislikedGamesRequest dislikedGamesRequest) {
-        System.out.println("here in post mapping");
         service.addDislikedGame(dislikedGamesRequest);
         return "Game added to disliked games";
     }
