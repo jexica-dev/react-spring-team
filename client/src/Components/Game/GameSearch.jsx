@@ -1,6 +1,12 @@
 import React from "react";
 
 export default function GameSearch() {
+
+  const handleSearch = () => {
+    console.log("searching for new games")
+  }
+
+
   return (
     <>
       <div className="grid w-screen justify-items-center pt-10">
@@ -21,7 +27,7 @@ export default function GameSearch() {
                 <button
                   className="bg-black hover:bg-white hover:text-black hover:border text-white font-bold py-2 px-4 rounded  "
                   type="button"
-                  // onClick={}
+                  onClick={handleSearch}
                 >
                   Search
                 </button>
