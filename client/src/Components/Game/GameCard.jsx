@@ -34,7 +34,7 @@ export default function GameCard(props) {
   return (
     <>
       <div className="grid ">
-        <Link className="card" to={`/games/${props.gameId}`}>
+        <Link className="card" to={`/games/${props.gameId}`} key={props.gameId}>
           <h4 className="text-center">{props.name}</h4>
         </Link>
         <img

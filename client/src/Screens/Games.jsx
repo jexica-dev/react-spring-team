@@ -16,7 +16,7 @@ export default function Games(props) {
     <div>
       <Layout id={props.id} username={props.username}>
         <GameSearch handleSearch={handleSearch}/>
-        <GameContainer id={props.id} handleIncomingResults={handleIncomingResults} />
+        <GameContainer id={props.id} handleIncomingResults={handleIncomingResults} games={props.games} />
       </Layout>
     </div>
   );

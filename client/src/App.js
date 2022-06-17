@@ -1,5 +1,6 @@
 import { Routes, Route, useNavigate } from "react-router-dom"
 import React, { useEffect, useState } from "react"
+
 import Home from "./Screens/Home"
 // import About from "./Screens/About";
 import Game from "./Screens/Game"
@@ -11,11 +12,15 @@ import EditUsername from "./Screens/EditUsername"
 import EditPassword from "./Screens/EditPassword"
 import DeleteAccount from "./Screens/DeleteAccount"
 import ListScreen from "./Screens/ListScreen"
+import axios from "axios"
+
+import { baseURL, API_KEY, config } from "./Services/apiConfigGames"
 
 export default function App() {
   let navigate = useNavigate()
   const [id, setId] = useState(null)
   const [username, setUsername] = useState(null)
+  const [games, setGames] = useState([])
 
   useEffect(() => {
     setId(localStorage.getItem("userId"))
@@ -40,6 +45,12 @@ export default function App() {
     navigate("/")
   }
 
+  async function fetchData() {
+    const res = await axios.get(baseURL + API_KEY + "&page_size=24", config)
+    setGames(res.data.results)
+  }
+  fetchData()
+
   return (
     <div className="App">
       <Routes>
@@ -48,10 +59,13 @@ export default function App() {
           path="/lists"
           element={<ListScreen id={id} username={username} />}
         />
-        <Route path="/games" element={<Games id={id} username={username} />} />
+        <Route
+          path="/games"
+          element={<Games id={id} games={games} username={username} />}
+        />
         <Route
           path="/games/:id"
-          element={<Game id={id} username={username} />}
+          element={<Game id={id} username={username} games={games} />}
         />
         <Route
           path="/login"
