@@ -1,9 +1,14 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login(props) {
- let navigate = useNavigate()
+  let navigate = useNavigate()
+  useEffect(() => {
+    if (props.id) {
+      navigate("/")
+    }
+  }, [navigate, props.id])
   const handleSignIn = (e) => {
 
     const { value: email } = document.getElementById("email")
@@ -31,13 +36,12 @@ export default function Login(props) {
 
     return (
       <>
-        <div className="grid w-screen justify-items-center pt-10">
+        <div className="grid w-screen m-auto max-w-[500px] justify-items-center pt-10">
           <div className="w-full max-w-xs">
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-7">
               <div className="flex flex-col items-center justify-between">
-                <label className="  text-xl">Welcome</label>
+                <h3 className="text-xl">Welcome</h3>
               </div>
-  
               <div className="mb-3">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"

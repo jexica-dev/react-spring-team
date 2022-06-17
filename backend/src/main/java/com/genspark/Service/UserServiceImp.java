@@ -1,7 +1,11 @@
 package com.genspark.Service;
 
 
+import com.genspark.Dao.DislikedGamesDao;
+import com.genspark.Dao.LikedGamesDao;
 import com.genspark.Dao.UserDao;
+import com.genspark.Entity.DislikedGame;
+import com.genspark.Entity.LikedGame;
 import com.genspark.Entity.User;
 import com.genspark.Request.UserRequest;
 import org.jasypt.util.password.BasicPasswordEncryptor;
@@ -18,6 +22,10 @@ public class UserServiceImp implements UserService {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private LikedGamesDao likedGamesDao;
+    @Autowired
+    DislikedGamesDao dislikedGamesDao;
 
     @Override
     public List<User> getAllUsers() {
@@ -98,6 +106,8 @@ public class UserServiceImp implements UserService {
         // try to find user whose username is being updated
         User user = userDao.findById(id).orElse(null);
         if (user == null) return "No user with that id exists.";
+        if(userRequest.getNewUsername().trim().equals("") || userRequest.getNewUsername().trim() == null)
+            return "Please enter a new username.";
         // go through users in db, looking for users who
         for (User u : userDao.findAll()) {
             if (u.getUsername().equals(userRequest.getNewUsername()) && u.getId() == id)
@@ -118,6 +128,8 @@ public class UserServiceImp implements UserService {
         if (!passwordEncryptor.checkPassword(userRequest.getPassword(), user.getPassWord()))
             return "Incorrect password.";
         // passwords match, delete user
+        for(LikedGame lg: likedGamesDao.findAll()) if(lg.getUserId() == id) likedGamesDao.delete(lg);
+        for(DislikedGame dg: dislikedGamesDao.findAll()) if(dg.getUserId() == id) dislikedGamesDao.delete(dg);
         this.userDao.deleteById(id);
         return "User removed from the database.";
     }

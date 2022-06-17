@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Signup(props) {
   let navigate = useNavigate()
-  if (props.id) {
-    navigate("/")
-  }
+  
+  useEffect(() => {
+    if (props.id) {
+      navigate("/")
+    }
+  }, [navigate, props.id])
 
   const handleSignup = (e) => {
     // get values from all fields and send a post request
@@ -34,7 +37,7 @@ export default function Signup(props) {
 
   return (
     <>
-      <div className="grid w-screen justify-items-center pt-10">
+      <div className="grid w-screen m-auto max-w-[500px] justify-items-center pt-10">
         <div className="w-full max-w-xs">
           <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-7">
             <div className="flex flex-col items-center justify-between">
