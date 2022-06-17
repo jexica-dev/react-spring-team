@@ -17,6 +17,13 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this)
   }
 
+  componentDidMount() {
+    this.setState({
+      id: localStorage.getItem("userId"),
+      username: localStorage.getItem("username"),
+    })
+  }
+
   handleLogin(id, username) {
     this.setState({ id, username })
     setTimeout(() => {

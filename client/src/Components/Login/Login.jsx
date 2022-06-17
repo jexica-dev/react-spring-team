@@ -15,6 +15,8 @@ export default function Login(props) {
         document.getElementById("msg").innerText = data.msg
       } else {
         document.getElementById("msg").innerText = "You're in!"
+        localStorage.setItem("userId", data.id)
+        localStorage.setItem("username", data.username)
         props.handleLogin(data.id, data.username)
         setTimeout(() => {
           navigate("/")

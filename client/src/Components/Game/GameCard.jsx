@@ -43,8 +43,8 @@ export default function GameCard(props) {
           <p>Released:{props.released}</p>
         </div>
         <div className="flex">
-          <button onClick={addToLikedGames} game_id={props.gameId} className="grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-trp bg-black text-white">👍</button>
-          <button onClick={addToDisLikedGames} game_id={props.gameId} className="grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-trp bg-black text-white">👎</button>
+          <button onClick={addToLikedGames} game_id={props.gameId} className="grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-black bg-grey text-white">👍</button>
+          <button onClick={addToDisLikedGames} game_id={props.gameId} className="grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-black bg-grey text-white">👎</button>
         </div>
       </div>
       </>
