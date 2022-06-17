@@ -8,7 +8,7 @@ export default function Games(props) {
     <div>
       <Layout id={props.id} username={props.username}>
         <GameSearch />
-        <GameContainer id={props.id}/>
+        <GameContainer id={props.id} games={props.games} />
       </Layout>
     </div>
   );

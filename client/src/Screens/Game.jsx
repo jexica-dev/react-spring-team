@@ -1,13 +1,15 @@
 import React from "react";
-import GameContainer from "../Components/Game/GamesContainer";
-import GameSearch from "../Components/Game/GameSearch";
+import GameDetail from "../Components/Game/GameDetail";
+
 import Layout from "../Components/Layout/Layout";
 
 export default function Game(props) {
+  console.log(props.game);
   return (
     <div>
       <Layout id={props.id} username={props.username}>
-        Single Game
+        GAME PAGE
+        <GameDetail id={props.id} />
       </Layout>
     </div>
   );
