@@ -49,7 +49,7 @@ export default function App(props) {
         />
         <Route
           path="/games/:id"
-          element={<Game id={id} username={username} />}
+          element={<Game id={id} username={username} games={games} />}
         />
         <Route
           path="/login"
