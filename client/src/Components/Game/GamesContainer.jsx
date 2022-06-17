@@ -27,21 +27,21 @@ export default function GamesContainer(props) {
 
   if (!loading) {
     return (
-        <div className="m-auto grid gap-10 grid-cols-3 max-w-screen-lg pb-12">
+      <div className="m-auto grid gap-10 max-w-screen-lg  md:w-30 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pb-12">
         {games.results.map((game, key) => {
-              return (
-                <GameCard
-                  gameId={game.id}
-                  userId={props.id}
-                  name={game.name}
-                  background_image={game.background_image}
-                  rating={game.metacritic}
-                  released={game.released}
-                  key={key}
-                />
-                )
-            })}
-        </div>
+          return (
+            <GameCard
+              gameId={game.id}
+              userId={props.id}
+              name={game.name}
+              background_image={game.background_image}
+              rating={game.metacritic}
+              released={game.released}
+              key={key}
+            />
+          );
+        })}
+      </div>
     );
   } else return <h3>...</h3>;
 }
