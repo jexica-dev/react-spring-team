@@ -39,8 +39,7 @@ export default function GamesContainer(props) {
                   released={game.released}
                   key={key}
                 />
-            
-                  )
+                )
             })}
         </div>
     );
