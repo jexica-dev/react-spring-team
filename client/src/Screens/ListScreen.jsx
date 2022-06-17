@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "../Components/Layout/Layout";
-import { baseURL, API_KEY, config } from "../Services/apiConfigGames";
 import GameItem from "../Components/Game/GameItem";
 
 export default function ListScreen(props) {

@@ -1,34 +1,52 @@
-import { Routes, Route } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { baseURL, API_KEY, config } from "./Services/apiConfigGames";
-
-import Home from "./Screens/Home";
+import { Routes, Route, useNavigate } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+  
+import Home from "./Screens/Home"
 // import About from "./Screens/About";
-import Game from "./Screens/Game";
-import Games from "./Screens/Games";
-import Login from "./Screens/LoginScreen";
-import Signup from "./Screens/Signup";
-import Account from "./Screens/Account";
-import ListScreen from "./Screens/ListScreen";
+import Game from "./Screens/Game"
+import Games from "./Screens/Games"
+import Login from "./Screens/LoginScreen"
+import Signup from "./Screens/Signup"
+import Account from "./Screens/Account"
+import EditUsername from "./Screens/EditUsername"
+import EditPassword from "./Screens/EditPassword"
+import DeleteAccount from "./Screens/DeleteAccount"
+import ListScreen from "./Screens/ListScreen"
 import axios from "axios";
+   
+import { baseURL, API_KEY, config } from "./Services/apiConfigGames";
+  
 
-export default function App(props) {
-  let [id, setId] = useState(null);
-  let [username, setUsername] = useState(null);
-
+export default function App() {
+  let navigate = useNavigate()
+  const [id, setId] = useState(null)
+  const [username, setUsername] = useState(null)
   const [games, setGames] = useState([]);
-  // let handle
-  function handleLogin(id_, username_) {
-    setId(id_);
-    setUsername(username_);
-  }
 
   useEffect(() => {
-    setId(localStorage.getItem("userId"));
-    setId(localStorage.getItem("username"));
+    setId(localStorage.getItem("userId"))
+    setUsername(localStorage.getItem("username"))
+  }, [])
 
-    //GET request
-    async function fetchData() {
+  const handleLogin = (id, username) => {
+    setId(id)
+    setUsername(username)
+  }
+
+  const handleEditUsername = (username) => {
+    setUsername(username)
+    localStorage.setItem("username", username)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId")
+    localStorage.removeItem("username")
+    setId(null)
+    setUsername(null)
+    navigate("/")
+  }
+  
+  async function fetchData() {
       const res = await axios.get(baseURL + API_KEY + "&page_size=24", config);
       setGames(res.data.results);
     }
@@ -63,9 +81,35 @@ export default function App(props) {
         />
         <Route
           path="/account"
-          element={<Account id={id} username={username} />}
+          element={
+            <Account id={id} username={username} handleLogout={handleLogout} />
+          }
+        />
+        <Route
+          path="/account/edit-username"
+          element={
+            <EditUsername
+              id={id}
+              username={username}
+              handleEditUsername={handleEditUsername}
+            />
+          }
+        />
+        <Route
+          path="/account/edit-password"
+          element={<EditPassword id={id} username={username} />}
+        />
+        <Route
+          path="/account/delete-account"
+          element={
+            <DeleteAccount
+              id={id}
+              username={username}
+              handleLogout={handleLogout}
+            />
+          }
         />
       </Routes>
     </div>
-  );
+  )
 }

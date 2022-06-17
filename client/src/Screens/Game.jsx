@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import GameDetail from "../Components/Game/GameDetail";
-
 import Layout from "../Components/Layout/Layout";
 
 export default function Game(props) {

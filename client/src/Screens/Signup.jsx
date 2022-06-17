@@ -7,7 +7,7 @@ export default function SignupScreen(props) {
     <div>
       <Layout
         id={props.id} username={props.username}>
-        <Signup />
+        <Signup id={props.id} username={props.username}/>
       </Layout>
     </div>
   );
