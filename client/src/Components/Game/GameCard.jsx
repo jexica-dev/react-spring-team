@@ -50,16 +50,24 @@ export default function GameCard(props) {
           <button
             onClick={addToLikedGames}
             game_id={props.gameId}
-            className="grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-black bg-grey text-white"
+            className=" grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-grey bg-black text-white"
           >
-            👍
+            <img
+              className="w-7 invert m-auto"
+              src="./thumb-up.svg"
+              alt="thumb-up"
+            />
           </button>
           <button
             onClick={addToDisLikedGames}
             game_id={props.gameId}
-            className="grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-black bg-grey text-white"
+            className="grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-grey bg-black text-white"
           >
-            👎
+            <img
+              className="w-7 invert m-auto"
+              src="./thumb-down.svg"
+              alt="thumb-down"
+            />
           </button>
         </div>
       </div>
