@@ -1,6 +1,5 @@
-import { Routes, Route, useNavigate } from "react-router-dom"
-import React, { useEffect, useState } from "react"
-
+import { Routes, Route } from "react-router-dom"
+import React, { Component } from "react"
 import Home from "./Screens/Home"
 // import About from "./Screens/About";
 import Game from "./Screens/Game"
@@ -12,102 +11,120 @@ import EditUsername from "./Screens/EditUsername"
 import EditPassword from "./Screens/EditPassword"
 import DeleteAccount from "./Screens/DeleteAccount"
 import ListScreen from "./Screens/ListScreen"
-import axios from "axios"
 
-import { baseURL, API_KEY, config } from "./Services/apiConfigGames"
-
-export default function App() {
-  let navigate = useNavigate()
-  const [id, setId] = useState(null)
-  const [username, setUsername] = useState(null)
-  const [games, setGames] = useState([])
-
-  useEffect(() => {
-    setId(localStorage.getItem("userId"))
-    setUsername(localStorage.getItem("username"))
-  }, [])
-
-  const handleLogin = (id, username) => {
-    setId(id)
-    setUsername(username)
+export default class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      id: null,
+      username: null,
+    }
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleEditUsername = this.handleEditUsername.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
   }
 
-  const handleEditUsername = (username) => {
-    setUsername(username)
+  componentDidMount() {
+    this.setState({
+      id: localStorage.getItem("userId"),
+      username: localStorage.getItem("username"),
+    })
+  }
+
+  handleLogin = (id, username) => {
+    this.setState({ id, username })
+  }
+
+  handleEditUsername = (username) => {
+    this.setState({ username })
     localStorage.setItem("username", username)
   }
 
-  const handleLogout = () => {
+  handleLogout = () => {
     localStorage.removeItem("userId")
     localStorage.removeItem("username")
-    setId(null)
-    setUsername(null)
-    navigate("/")
+    this.setState({ id: null, username: null })
+    window.location.href = "/"
   }
 
-  async function fetchData() {
-    const res = await axios.get(baseURL + API_KEY + "&page_size=24", config)
-    setGames(res.data.results)
+  render() {
+    return (
+      <div className="App">
+        <Routes>
+          <Route
+            path="/"
+            element={<Home id={this.state.id} username={this.state.username} />}
+          />
+          <Route
+            path="/lists"
+            element={
+              <ListScreen id={this.state.id} username={this.state.username} />
+            }
+          />
+          <Route
+            path="/games"
+            element={
+              <Games id={this.state.id} username={this.state.username} />
+            }
+          />
+          <Route
+            path="/games/:id"
+            element={<Game id={this.state.id} username={this.state.username} />}
+          />
+          <Route
+            path="/login"
+            element={
+              <Login
+                handleLogin={this.handleLogin}
+                id={this.state.id}
+                username={this.state.username}
+              />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Signup id={this.state.id} username={this.state.username} />
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              <Account
+                id={this.state.id}
+                username={this.state.username}
+                handleLogout={this.handleLogout}
+              />
+            }
+          />
+          <Route
+            path="/account/edit-username"
+            element={
+              <EditUsername
+                id={this.state.id}
+                username={this.state.username}
+                handleEditUsername={this.handleEditUsername}
+              />
+            }
+          />
+          <Route
+            path="/account/edit-password"
+            element={
+              <EditPassword id={this.state.id} username={this.state.username} />
+            }
+          />
+          <Route
+            path="/account/delete-account"
+            element={
+              <DeleteAccount
+                id={this.state.id}
+                username={this.state.username}
+                handleLogout={this.handleLoginhandleLogout}
+              />
+            }
+          />
+        </Routes>
+      </div>
+    )
   }
-  fetchData()
-
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Home id={id} username={username} />} />
-        <Route
-          path="/lists"
-          element={<ListScreen id={id} username={username} />}
-        />
-        <Route
-          path="/games"
-          element={<Games id={id} games={games} username={username} />}
-        />
-        <Route
-          path="/games/:id"
-          element={<Game id={id} username={username} games={games} />}
-        />
-        <Route
-          path="/login"
-          element={
-            <Login handleLogin={handleLogin} id={id} username={username} />
-          }
-        />
-        <Route
-          path="/signup"
-          element={<Signup id={id} username={username} />}
-        />
-        <Route
-          path="/account"
-          element={
-            <Account id={id} username={username} handleLogout={handleLogout} />
-          }
-        />
-        <Route
-          path="/account/edit-username"
-          element={
-            <EditUsername
-              id={id}
-              username={username}
-              handleEditUsername={handleEditUsername}
-            />
-          }
-        />
-        <Route
-          path="/account/edit-password"
-          element={<EditPassword id={id} username={username} />}
-        />
-        <Route
-          path="/account/delete-account"
-          element={
-            <DeleteAccount
-              id={id}
-              username={username}
-              handleLogout={handleLogout}
-            />
-          }
-        />
-      </Routes>
-    </div>
-  )
 }

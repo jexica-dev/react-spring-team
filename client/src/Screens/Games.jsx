@@ -4,6 +4,7 @@ import GameSearch from "../Components/Game/GameSearch";
 import Layout from "../Components/Layout/Layout";
 
 export default function Games(props) {
+
   const handleSearch = () => {
 
   }
@@ -16,7 +17,7 @@ export default function Games(props) {
     <div>
       <Layout id={props.id} username={props.username}>
         <GameSearch handleSearch={handleSearch}/>
-        <GameContainer id={props.id} handleIncomingResults={handleIncomingResults} games={props.games} />
+        <GameContainer id={props.id} handleIncomingResults={handleIncomingResults} />
       </Layout>
     </div>
   );

@@ -1,24 +1,41 @@
-import React from "react";
+import React, { Component } from "react";
+import axios from "axios";
+import { baseURL, API_KEY, config } from "../../Services/apiConfigGames";
 // import { Link } from "react-router-dom";
 
-export default function GameDetail(props) {
-  let game = props.games.find((e) => {
-    return e.id == props.id;
-  });
+export default class GameDetail extends Component {
+  constructor(props) {
+    super(props) 
+    this.state = {
+      backgroundImage: "",
+      gameName: "",
+      gameDescription: ""
+    }
+  }
 
-  console.log(props.games);
-
-  return (
-    <>
-      <div className="">
-        <img
-          className="game-image"
-          src={game.background_image}
-          alt={game ? game.name : null}
-        />
-        <div className="game-name">{game ? game.name : null}</div>
-        <div className="game-info">{game ? game.info : null}</div>
-      </div>
-    </>
-  );
+  componentDidMount() {
+    axios.get(baseURL + `/${this.props.id}` + API_KEY, config).then(res => {
+        const{data} = res
+      this.setState({ backgroundImage: data.background_image, gameName: data.name })
+      document.getElementById("description").innerHTML = data.description
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+  
+  render() {
+    return (
+      <>
+        <div className="">
+          <img
+            className="game-image"
+            src={this.state.backgroundImage}
+            alt={this.state.gameName}
+          />
+          <div className="game-name">{this.state.gameName}</div>
+          <div id="description" className="game-description"></div>
+        </div>
+      </>
+    );
+  }
 }

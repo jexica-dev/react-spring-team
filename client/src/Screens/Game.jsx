@@ -5,8 +5,6 @@ import Layout from "../Components/Layout/Layout";
 
 export default function Game(props) {
   let params = useParams();
-
-  console.log(props.game);
   return (
     <div>
       <Layout id={props.id} username={props.username}>
@@ -14,7 +12,7 @@ export default function Game(props) {
           <div className="w-96">
             <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-7">
               GAME PAGE
-              <GameDetail id={params.id} games={props.games} />
+              <GameDetail id={params.id} />
             </div>
           </div>
         </div>
