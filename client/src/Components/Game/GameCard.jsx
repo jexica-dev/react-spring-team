@@ -9,7 +9,7 @@ export default function GameCard(props) {
     const { target } = e
     const gameId = target.getAttribute("game_id")
     const userId = props.userId
-    axios.post("/liked-games", { userId, gameId }).then(res => {
+    axios.post("http://localhost:8080/add-to-liked-games", { userId, gameId }).then(res => {
       console.log("the game was added to this user's liked list")
     }).catch(err => {
       console.log("nah breh")
@@ -21,8 +21,9 @@ export default function GameCard(props) {
     const { target } = e
     const gameId = target.getAttribute("game_id")
     const userId = props.userId
-    axios.post("/disliked-games", { userId, gameId }).then(res => {
-      console.log("the game was added to this user's liked list")
+    console.log(gameId, userId)
+    axios.post("http://localhost:8080/add-to-disliked-games", { userId, gameId }).then(res => {
+      console.log("the game was added to this user's disliked list")
     }).catch(err => {
       console.log("nah breh")
     })
@@ -33,11 +34,11 @@ export default function GameCard(props) {
 
   return (
     <>
-      <div className="grid place-content-center">
+      <div className="grid">
       <Link className="card" to={`/games/${props.gameId}`}>
         <h4 className="text-center">{props.name}</h4>
       </Link>
-        <img className="object-cover h-48 min-w-full" src={props.background_image} alt={props.name} />
+        <img className="object-cover object-top h-48 min-w-full" src={props.background_image} alt={props.name} />
         <div className="flex justify-between text-sm">
           <p>Rating:{props.rating}%</p>
           <p>Released:{props.released}</p>
