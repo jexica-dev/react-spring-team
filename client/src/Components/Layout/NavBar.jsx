@@ -10,13 +10,13 @@ export default function NavBar(props) {
     navigate("/", { replace: true });
   };
   return (
-    <div className="nav-container">
-      <div className="nav-body flex justify-around grid-cols-5 text-2xl font-bold tracking-wide whitespace-nowrap border border-black py-5 pr-14 pl-10 text-black w-full">
+    <div className="nav-container border-b border-b-black">
+      <div className="nav-body flex justify-around items-center text-md sm:text-xl md:text-2xl font-bold tracking-wide whitespace-nowrap py-5 pr-5 pl-5 text-black w-full max-w-[1500px] m-auto">
         <Link to="/">
           <div>
             <span
               onClick={handleMain}
-              className="hover:underline hover:underline-offset-8 hover:font-light text-3xl p-0 m-0 absolute top-3"
+              className="hover:underline hover:underline-offset-8 hover:font-light text-xl sm:text-2xl md:text-3xl p-0 m-0 top-3"
             >
               ☝
             </span>
@@ -55,8 +55,8 @@ export default function NavBar(props) {
               </div>
             </Link>
             <Link to="/account">
-              <div className="">
-                <span className="hover:underline hover:underline-offset-8 hover:font-light ">
+              <div className="max-w-[110px] md:max-w-[unset] text-ellipsis overflow-hidden">
+                <span className="hover:underline hover:underline-offset-8 hover:font-light">
                   {props.username}
                 </span>
               </div>

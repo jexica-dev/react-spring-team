@@ -5,7 +5,7 @@ export default function GameSearch() {
     <>
       <div className="grid w-screen justify-items-center pt-10">
         <div className="w-full max-w-lg">
-          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-7">
+          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-7 max-w-[700px] m-auto">
             {/* <div className="grid w-full justify-items-center h-10">
               <label className="text-xl">Search</label>
             </div> */}
