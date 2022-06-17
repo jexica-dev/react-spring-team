@@ -53,9 +53,9 @@ export default function GameCard(props) {
             className=" grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-grey bg-black text-white"
           >
             <img
-              className="w-7 invert m-auto"
-              src="./thumb-up.svg"
-              alt="thumb-up"
+              className="w-7 invert m-auto scale-y-[-1]"
+              src="./thumb-down.svg"
+              alt="thumb-down"
             />
           </button>
           <button
@@ -64,9 +64,9 @@ export default function GameCard(props) {
             className="grow whitespace-nowrap font-medium tracking-wider py-3 px-10 hover:bg-grey bg-black text-white"
           >
             <img
-              className="w-7 invert m-auto"
+              className="w-7 invert m-auto scale-x-[-1] fill-red-50"
               src="./thumb-down.svg"
-              alt="thumb-down"
+              alt="thumb-up"
             />
           </button>
         </div>
