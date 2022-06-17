@@ -61,6 +61,7 @@ public class UserController {
 
     @PutMapping("edit-password/{id}")
     public String editUserPassword(@RequestBody UserRequest userRequest, @PathVariable(value = "id") int id) {
+        System.out.println(id);
         return this.service.editUserPassword(userRequest, id);
     }
 
@@ -70,7 +71,8 @@ public class UserController {
     }
 
     @DeleteMapping("/delete-user/{id}")
-    public String deleteUser(@RequestBody UserRequest userRequest ,@PathVariable(value = "id") int id){
+    public String deleteUser(@RequestBody UserRequest userRequest, @PathVariable(value = "id") int id){
+        System.out.println(id);
         return this.service.deleteUser(userRequest, id);
     }
 }
