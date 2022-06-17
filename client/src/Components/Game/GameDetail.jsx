@@ -10,7 +10,7 @@ export default function GameDetail(props) {
 
   return (
     <>
-      <p>
+      <div className="">
         <img
           className="game-image"
           src={game.background_image}
@@ -18,7 +18,7 @@ export default function GameDetail(props) {
         />
         <div className="game-name">{game ? game.name : null}</div>
         <div className="game-info">{game ? game.info : null}</div>
-      </p>
+      </div>
     </>
   );
 }
