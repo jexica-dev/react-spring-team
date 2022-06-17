@@ -17,13 +17,19 @@ public class LikedGamesController {
 
     @GetMapping("/liked-games/{id}")
     public List<LikedGame> getLikedGames(@PathVariable(value = "id") int id) {
-        return null;
+        return service.getAllLikedGames(id);
     }
 
     @PostMapping("/add-to-liked-games")
     public String addToLikedGames(@RequestBody LikedGamesRequest likedGamesRequest) {
         service.addLikedGame(likedGamesRequest);
-        return "Game added";
+        return "Game added to liked list";
+    }
+
+    @DeleteMapping("/remove-from-liked-list/{userId}/{gameId}")
+    public String removeFromLikedList(@PathVariable(value = "userId") int userId, @PathVariable(value = "gameId") int gameId) {
+        service.removeLikedGame(userId, gameId);
+        return "Game removed from liked list.";
     }
 
 }

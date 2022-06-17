@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface LikedGameService {
 
-    List<LikedGame> getAllLikedGames();
+    List<LikedGame> getAllLikedGames(int id);
     String addLikedGame(LikedGamesRequest likesGamesRequest);
-
+    void removeLikedGame(int userId, int gameId);
 
 }
