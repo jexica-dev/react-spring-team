@@ -15,7 +15,7 @@ module.exports = {
       trp: "transparent",
       black: "#000000",
       white: "#ffffff",
-      grey: "#444444",
+      grey: "#A9A9A9",
     }),
     borderColor: (theme) => ({
       yellow: "#FFE715",
@@ -49,4 +49,4 @@ module.exports = {
     }),
   },
   plugins: [],
-}
+};

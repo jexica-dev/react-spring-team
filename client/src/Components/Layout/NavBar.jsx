@@ -29,29 +29,40 @@ export default function NavBar(props) {
             </span>
           </div>
         </Link>
-        {!props.id ?
+        {!props.id ? (
           <Link to="/login">
             <div className="">
               <span className="hover:underline hover:underline-offset-8 hover:font-light">
                 Login
               </span>
             </div>
-          </Link> : null}
-        <Link to="/about">
+          </Link>
+        ) : null}
+        {/* <Link to="/about">
           <div className="">
             <span className="hover:underline hover:underline-offset-8 hover:font-light ">
               About
             </span>
           </div>
-        </Link>
-        {props.id ? 
-        <Link to="/account">
-        <div className="">
-          <span className="hover:underline hover:underline-offset-8 hover:font-light ">
-            {props.username}
-          </span>
-        </div>
-      </Link> : null}
+        </Link> */}
+        {props.id ? (
+          <>
+            <Link to="/lists">
+              <div className="">
+                <span className="hover:underline hover:underline-offset-8 hover:font-light ">
+                  Lists
+                </span>
+              </div>
+            </Link>
+            <Link to="/account">
+              <div className="">
+                <span className="hover:underline hover:underline-offset-8 hover:font-light ">
+                  {props.username}
+                </span>
+              </div>
+            </Link>
+          </>
+        ) : null}
       </div>
     </div>
   );
