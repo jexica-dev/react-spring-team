@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from "react-router-dom"
-import React, { Component, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Home from "./Screens/Home"
 // import About from "./Screens/About";
 import Game from "./Screens/Game"
